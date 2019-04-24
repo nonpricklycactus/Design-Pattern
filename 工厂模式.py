@@ -10,50 +10,45 @@
 '''
 
 
-class ShapeFactory(object):
-    '''工厂类'''
+class CreateOperation(object):
+    def get_name(self):
+        return self.Operation_name
 
-    def getShape(self):
-        return self.shape_name
-
-class Circle(ShapeFactory):
-
+class Addition(CreateOperation):
     def __init__(self):
-        self.shape_name = "Circle"
-    def draw(self):
-        print('draw circle')
+        self.Operation_name = 'Addition'
+    def count(self):
+        print("加法计算")
 
-class Rectangle(ShapeFactory):
+class Subtraction(CreateOperation):
     def __init__(self):
-        self.shape_name = "Retangle"
+        self.Operation_name = 'Subtraction'
+    def count(self):
+        print("减法计算")
 
-    def draw(self):
-        print('draw Rectangle')
-
-
-class ShapeInterfaceFactory(object):
+class OperationInterfaceFactory(object):
     '''接口基类'''
+
     def create(self):
         '''把要创建的工厂对象装配进来'''
-        raise  NotImplementedError
+        raise NotImplementedError              #报错后产生的问题分类是NotImplementedError
 
-class ShapeCircle(ShapeInterfaceFactory):
+class CreateAddition(OperationInterfaceFactory):
     def create(self):
-        return Circle()
+        return Addition()
 
-
-class ShapeRectangle(ShapeInterfaceFactory):
+class CreateSubtraction(OperationInterfaceFactory):
     def create(self):
-        return Rectangle()
+        return Subtraction()
 
-
-shape_interface = ShapeCircle()
+shape_interface = CreateAddition()
 obj = shape_interface.create()
-obj.getShape()
-obj.draw()
+obj.get_name()
+obj.count()
 
-shape_interface2 = ShapeRectangle()
+shape_interface2 = CreateSubtraction()
 obj2 = shape_interface2.create()
-obj2.draw()
+obj2.count()
+
 
 工厂模式
